@@ -1,5 +1,5 @@
 import { Button, Input, QRCode } from "antd";
-import { ChangeEvent, ReactElement, useRef, useState } from "react";
+import { ChangeEvent, ReactElement, useState } from "react";
 import styled from "styled-components";
 import { Image } from "antd";
 import images, { Image as ImageT } from "./images";
