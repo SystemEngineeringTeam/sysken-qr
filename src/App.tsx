@@ -51,6 +51,14 @@ const App = (): ReactElement => {
     setUrl(value);
   };
 
+  const handleSelectImage = (image: ImageT) => {
+    if (image.id === selectedImage?.id) {
+      setSelectedImage(undefined);
+    } else {
+      setSelectedImage(image);
+    }
+  };
+
   const downloadQRCode = () => {
     const canvas = document.querySelector<HTMLCanvasElement>("canvas");
     if (canvas) {
@@ -95,7 +103,7 @@ const App = (): ReactElement => {
             src={image.src}
             preview={false}
             $selected={selectedImage?.id === image.id}
-            onClick={() => setSelectedImage(image)}
+            onClick={() => handleSelectImage(image)}
           />
         ))}
       </ImageWrapper>
