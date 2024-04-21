@@ -13,6 +13,12 @@ import syscatKira from "./assets/syscat-kira.png";
 import syscatMite from "./assets/syscat-mite.png";
 import syscatSintyoku from "./assets/syscat-sintyoku.png";
 import syscatTyping from "./assets/syscat-typing.png";
+import syscatTira from "./assets/syscat-tira.png";
+import syscatRemote from "./assets/syscat-remote.png";
+import syscatRemoteSansen from "./assets/syscat-remote_sansen.png";
+import syscatMoyamoya from "./assets/syscat-moyamoya.png";
+import syscatHarapeko from "./assets/syscat-harapeko.png";
+import syscatHuman from "./assets/syscat_human.png";
 
 export interface Image {
   id: number;
@@ -36,6 +42,12 @@ const images: Omit<Image, "id">[] = [
   { src: syscatMite, title: "シスにゃん(みてみて)" },
   { src: syscatSintyoku, title: "シスにゃん(進捗どうですか)" },
   { src: syscatTyping, title: "シスにゃん(タイピング)" },
+  { src: syscatTira, title: "シスにゃん(チラッ)" },
+  { src: syscatRemote, title: "シスにゃん(リモート)" },
+  { src: syscatRemoteSansen, title: "シスにゃん(リモート参戦)" },
+  { src: syscatMoyamoya, title: "シスにゃん(もやもや)" },
+  { src: syscatHarapeko, title: "シスにゃん(腹ペコ)" },
+  { src: syscatHuman, title: "シスにゃん(人間)" },
 ];
 
 export default images.map((image, i) => ({ ...image, id: i }));
