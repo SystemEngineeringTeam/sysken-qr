@@ -1,4 +1,4 @@
-import { Button, Input, QRCode } from "antd";
+import { Button, ColorPicker, Flex, Input, QRCode } from "antd";
 import { ChangeEvent, ReactElement, useState } from "react";
 import styled from "styled-components";
 import { Image } from "antd";
@@ -26,10 +26,6 @@ const CustomQRCode = styled(QRCode)`
   margin: 20px auto;
 `;
 
-const ButtonWrapper = styled.div`
-  margin: 10px 0 30px;
-`;
-
 const ImageWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -45,6 +41,8 @@ const CutomImage = styled(Image)<{ $selected: boolean }>`
 const App = (): ReactElement => {
   const [url, setUrl] = useState("");
   const [selectedImage, setSelectedImage] = useState<ImageT>();
+  const [qrColor, setQrColor] = useState("#000000");
+  const [qrBackgroundColor, setQrBackgroundColor] = useState("#ffffff00");
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
@@ -66,9 +64,7 @@ const App = (): ReactElement => {
       const a = document.createElement("a");
       a.download = "QRCode.png";
       a.href = url;
-      document.body.appendChild(a);
       a.click();
-      document.body.removeChild(a);
     }
   };
 
@@ -86,14 +82,29 @@ const App = (): ReactElement => {
           value={url === "" ? "https://sysken.net/" : url}
           status={url === "" ? "loading" : "active"}
           icon={selectedImage?.src ?? ""}
+          color={qrColor}
+          bgColor={qrBackgroundColor}
         />
       </QRCodeWrapper>
 
-      <ButtonWrapper>
+      <Flex justify="center" align="center" gap={10}>
+        <ColorPicker
+          defaultValue={qrColor}
+          size="small"
+          showText
+          onChange={(c) => setQrColor(c.toHexString())}
+        />
+        <ColorPicker
+          defaultValue={qrBackgroundColor}
+          size="small"
+          showText
+          onChange={(c) => setQrBackgroundColor(c.toHexString())}
+        />
+
         <Button type="primary" onClick={downloadQRCode}>
           Download
         </Button>
-      </ButtonWrapper>
+      </Flex>
 
       <ImageWrapper>
         {images.map((image) => (
