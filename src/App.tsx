@@ -73,6 +73,18 @@ const App = (): ReactElement => {
     }
   };
 
+  const reset = () => {
+    setParam("image", undefined);
+    setParam("text", undefined);
+    setParam("image", undefined);
+    setParam("color", undefined);
+    setParam("bgColor", undefined);
+    setUrl("");
+    setQrColor("#000000");
+    setQrBackgroundColor("#ffffff00");
+    setSelectedImage(undefined);
+  }
+
   const changeQRColor = (color: string) => {
     setQrColor(color);
     setParam("color", color);
@@ -103,6 +115,10 @@ const App = (): ReactElement => {
       </QRCodeWrapper>
 
       <Flex justify="center" align="center" gap={10}>
+        <Button type="dashed" onClick={reset}>
+          Reset
+        </Button>
+
         <ColorPicker
           defaultValue={qrColor}
           size="small"
