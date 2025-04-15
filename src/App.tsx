@@ -2,7 +2,8 @@ import { Button, ColorPicker, Flex, Input, QRCode } from "antd";
 import { ChangeEvent, ReactElement, useState } from "react";
 import styled from "styled-components";
 import { Image } from "antd";
-import images, { Image as ImageT } from "./images";
+import images, { getImageByIdStr, Image as ImageT } from "./images";
+import { useParams } from "./hooks/useParams";
 
 const Main = styled.main`
   padding: 50px 30px;
@@ -33,27 +34,31 @@ const ImageWrapper = styled.div`
   gap: 10px;
 `;
 
-const CutomImage = styled(Image)<{ $selected: boolean }>`
+const CustomImage = styled(Image) <{ $selected: boolean }>`
   outline: 1px solid ${({ $selected }) => ($selected ? "blue" : "transparent")};
   cursor: pointer;
 `;
 
 const App = (): ReactElement => {
-  const [url, setUrl] = useState("");
-  const [selectedImage, setSelectedImage] = useState<ImageT>();
-  const [qrColor, setQrColor] = useState("#000000");
-  const [qrBackgroundColor, setQrBackgroundColor] = useState("#ffffff00");
+  const [params, { setParam }] = useParams();
+  const [url, setUrl] = useState(params?.text ?? '');
+  const [selectedImage, setSelectedImage] = useState<ImageT | undefined>(getImageByIdStr(params?.image));
+  const [qrColor, setQrColor] = useState(params?.color ?? "#000000");
+  const [qrBackgroundColor, setQrBackgroundColor] = useState(params?.bgColor ?? "#ffffff00");
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     setUrl(value);
+    setParam("text", value);
   };
 
   const handleSelectImage = (image: ImageT) => {
     if (image.id === selectedImage?.id) {
       setSelectedImage(undefined);
+      setParam("image", undefined);
     } else {
       setSelectedImage(image);
+      setParam("image", image.id.toString());
     }
   };
 
@@ -67,6 +72,16 @@ const App = (): ReactElement => {
       a.click();
     }
   };
+
+  const changeQRColor = (color: string) => {
+    setQrColor(color);
+    setParam("color", color);
+  }
+
+  const changeQRBackgroundColor = (color: string) => {
+    setQrBackgroundColor(color);
+    setParam("bgColor", color);
+  }
 
   return (
     <Main>
@@ -92,13 +107,13 @@ const App = (): ReactElement => {
           defaultValue={qrColor}
           size="small"
           showText
-          onChange={(c) => setQrColor(c.toHexString())}
+          onChange={(c) => changeQRColor(c.toHexString())}
         />
         <ColorPicker
           defaultValue={qrBackgroundColor}
           size="small"
           showText
-          onChange={(c) => setQrBackgroundColor(c.toHexString())}
+          onChange={(c) => changeQRBackgroundColor(c.toHexString())}
         />
 
         <Button type="primary" onClick={downloadQRCode}>
@@ -108,7 +123,7 @@ const App = (): ReactElement => {
 
       <ImageWrapper>
         {images.map((image) => (
-          <CutomImage
+          <CustomImage
             key={image.src}
             width={200}
             src={image.src}

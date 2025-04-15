@@ -26,28 +26,34 @@ export interface Image {
   title: string;
 }
 
-const images: Omit<Image, "id">[] = [
-  { src: logo, title: "ロゴ" },
-  { src: logoSimple, title: "ロゴ(シンプル)" },
-  { src: oldLogo, title: "旧ロゴ" },
-  { src: syscat, title: "シスにゃん" },
-  { src: syscatDoya, title: "シスにゃん(どや)" },
-  { src: syscatGood, title: "シスにゃん(グッド)" },
-  { src: syscatLove, title: "シスにゃん(ラブ)" },
-  { src: syscatOk, title: "シスにゃん(OK)" },
-  { src: syscatSleep, title: "シスにゃん(睡眠中)" },
-  { src: syscatCry, title: "シスにゃん(泣)" },
-  { src: syscatDoya2, title: "シスにゃん(どや) 2" },
-  { src: syscatKira, title: "シスにゃん(キラキラ)" },
-  { src: syscatMite, title: "シスにゃん(みてみて)" },
-  { src: syscatSintyoku, title: "シスにゃん(進捗どうですか)" },
-  { src: syscatTyping, title: "シスにゃん(タイピング)" },
-  { src: syscatTira, title: "シスにゃん(チラッ)" },
-  { src: syscatRemote, title: "シスにゃん(リモート)" },
-  { src: syscatRemoteSansen, title: "シスにゃん(リモート参戦)" },
-  { src: syscatMoyamoya, title: "シスにゃん(もやもや)" },
-  { src: syscatHarapeko, title: "シスにゃん(腹ペコ)" },
-  { src: syscatHuman, title: "シスにゃん(人間)" },
+const images: Image[] = [
+  { id: 1, src: logo, title: "ロゴ" },
+  { id: 2, src: logoSimple, title: "ロゴ(シンプル)" },
+  { id: 3, src: oldLogo, title: "旧ロゴ" },
+  { id: 4, src: syscat, title: "シスにゃん" },
+  { id: 5, src: syscatDoya, title: "シスにゃん(どや)" },
+  { id: 6, src: syscatGood, title: "シスにゃん(グッド)" },
+  { id: 7, src: syscatLove, title: "シスにゃん(ラブ)" },
+  { id: 8, src: syscatOk, title: "シスにゃん(OK)" },
+  { id: 9, src: syscatSleep, title: "シスにゃん(睡眠中)" },
+  { id: 10, src: syscatCry, title: "シスにゃん(泣)" },
+  { id: 12, src: syscatDoya2, title: "シスにゃん(どや) 2" },
+  { id: 13, src: syscatKira, title: "シスにゃん(キラキラ)" },
+  { id: 14, src: syscatMite, title: "シスにゃん(みてみて)" },
+  { id: 15, src: syscatSintyoku, title: "シスにゃん(進捗どうですか)" },
+  { id: 16, src: syscatTyping, title: "シスにゃん(タイピング)" },
+  { id: 17, src: syscatTira, title: "シスにゃん(チラッ)" },
+  { id: 18, src: syscatRemote, title: "シスにゃん(リモート)" },
+  { id: 19, src: syscatRemoteSansen, title: "シスにゃん(リモート参戦)" },
+  { id: 20, src: syscatMoyamoya, title: "シスにゃん(もやもや)" },
+  { id: 21, src: syscatHarapeko, title: "シスにゃん(腹ペコ)" },
+  { id: 22, src: syscatHuman, title: "シスにゃん(人間)" },
 ];
 
-export default images.map((image, i) => ({ ...image, id: i }));
+export const getImageByIdStr = (id_: string | undefined) => {
+  if (id_ === undefined) return undefined;
+  const id = Number(id_);
+  return images.find((image) => image.id === id);
+};
+
+export default images;
